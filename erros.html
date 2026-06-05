@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Caderno de Erros · ResumsMed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:#f7f5f0;color:#1a1a18;line-height:1.6;min-height:100vh}
+
+:root{
+  --blue-50:#E6F1FB;--blue-600:#185FA5;--blue-800:#0C447C;
+  --green-50:#E1F5EE;--green-600:#0F6E56;--green-800:#085041;
+  --amber-50:#FAEEDA;--amber-600:#854F0B;--amber-800:#633806;
+  --red-50:#FCEBEB;--red-600:#A32D2D;
+  --cream:#f7f5f0;--cream-dark:#ede9e0;--ink:#1a1a18;--ink-muted:#5a5a55;--ink-light:#9a9a93;
+  --white:#ffffff;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,.08);
+}
+
+/* Nav */
+nav{background:rgba(247,245,240,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,26,24,.08);padding:0 5vw;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:30px;height:30px;background:var(--ink);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.nav-logo-icon svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:1.8}
+.nav-brand{font-size:14px;font-weight:600;color:var(--ink)}
+.nav-brand span{color:var(--blue-600)}
+.nav-back{font-size:13px;color:var(--ink-muted);display:flex;align-items:center;gap:5px;transition:color .2s}
+.nav-back:hover{color:var(--ink)}
+.nav-back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* Layout */
+.page{max-width:1000px;margin:0 auto;padding:40px 5vw 80px}
+
+/* Header */
+.page-header{margin-bottom:36px}
+.page-tag{display:inline-flex;align-items:center;gap:6px;background:var(--amber-50);color:var(--amber-800);font-size:12px;font-weight:500;padding:4px 12px;border-radius:99px;border:1px solid #FAC775;margin-bottom:14px}
+.page-tag::before{content:'';width:6px;height:6px;background:var(--amber-600);border-radius:50%}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,40px);font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:10px}
+.page-sub{font-size:15px;color:var(--ink-muted);font-weight:300;max-width:560px}
+
+/* Grid */
+.main-grid{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:start}
+@media(max-width:780px){.main-grid{grid-template-columns:1fr}}
+
+/* Card */
+.card{background:var(--white);border-radius:var(--radius-xl);border:1px solid rgba(26,26,24,.08);box-shadow:var(--shadow-md);overflow:hidden}
+.card-header{padding:18px 22px;border-bottom:1px solid rgba(26,26,24,.07);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-header h2{font-size:15px;font-weight:600;color:var(--ink)}
+.card-header p{font-size:12px;color:var(--ink-muted);margin-top:2px}
+.card-body{padding:20px 22px}
+
+/* Form */
+.area-select-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.area-pill{padding:6px 14px;border-radius:99px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid transparent;transition:all .18s;background:var(--cream-dark);color:var(--ink-muted)}
+.area-pill.active{border-color:currentColor}
+.area-pill[data-area="CM"].active{background:#E6F1FB;color:#0C447C;border-color:#B5D4F4}
+.area-pill[data-area="PREV"].active{background:#E1F5EE;color:#085041;border-color:#9FE1CB}
+.area-pill[data-area="PED"].active{background:#EEEDFE;color:#3C3489;border-color:#CECBF6}
+.area-pill[data-area="GO"].active{background:#FBEAF0;color:#72243E;border-color:#F4C0D1}
+.area-pill[data-area="CIR"].active{background:#FAEEDA;color:#633806;border-color:#FAC775}
+.area-pill[data-area="—"].active{background:var(--cream-dark);color:var(--ink);border-color:rgba(26,26,24,.25)}
+
+textarea{width:100%;border:1px solid rgba(26,26,24,.14);border-radius:var(--radius-md);padding:12px 14px;font-family:'Sora',sans-serif;font-size:13.5px;color:var(--ink);resize:vertical;min-height:110px;background:var(--cream);transition:border-color .2s;line-height:1.6}
+textarea:focus{outline:none;border-color:rgba(26,26,24,.35);background:var(--white)}
+textarea::placeholder{color:var(--ink-light)}
+.form-hint{font-size:11.5px;color:var(--ink-light);margin-top:6px;line-height:1.5}
+
+.btn-add{width:100%;margin-top:14px;background:var(--ink);color:#fff;border:none;border-radius:var(--radius-md);padding:12px;font-family:'Sora',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,transform .15s}
+.btn-add:hover{background:#2d2d2a;transform:translateY(-1px)}
+.btn-add svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2}
+
+/* Entry list */
+.entries-wrap{display:flex;flex-direction:column;gap:8px}
+.entry{border-radius:var(--radius-md);border:1px solid rgba(26,26,24,.08);padding:12px 14px;background:var(--white);position:relative;transition:box-shadow .18s}
+.entry:hover{box-shadow:var(--shadow-sm)}
+.entry-top{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.entry-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;flex-shrink:0;text-transform:uppercase;letter-spacing:.3px}
+.entry-date{font-size:11px;color:var(--ink-light);margin-left:auto}
+.entry-text{font-size:13px;color:var(--ink-muted);line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.entry-del{position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;color:var(--ink-light);padding:2px;border-radius:4px;line-height:1;font-size:16px;transition:color .15s;opacity:0}
+.entry:hover .entry-del{opacity:1}
+.entry-del:hover{color:var(--red-600)}
+
+.empty-state{text-align:center;padding:40px 20px;color:var(--ink-light)}
+.empty-state svg{width:40px;height:40px;stroke:currentColor;fill:none;stroke-width:1.2;margin-bottom:12px;opacity:.4}
+.empty-state p{font-size:13px}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.stat{background:var(--cream);border-radius:var(--radius-md);padding:12px;text-align:center}
+.stat-n{font-size:22px;font-weight:600;color:var(--ink);line-height:1}
+.stat-label{font-size:11px;color:var(--ink-muted);margin-top:3px}
+
+/* Sidebar */
+.sidebar{display:flex;flex-direction:column;gap:16px}
+
+/* Prompt card */
+.prompt-card{background:var(--white);border-radius:var(--radius-xl);border:1px solid rgba(26,26,24,.08);box-shadow:var(--shadow-md);overflow:hidden}
+.prompt-card-header{padding:16px 20px;border-bottom:1px solid rgba(26,26,24,.07);display:flex;align-items:center;gap:10px}
+.prompt-icon{width:32px;height:32px;background:#f0f0ea;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prompt-icon svg{width:16px;height:16px;fill:none;stroke:var(--ink-muted);stroke-width:1.8}
+.prompt-card-header h3{font-size:14px;font-weight:600}
+.prompt-card-header p{font-size:11px;color:var(--ink-muted)}
+.prompt-body{padding:16px 20px}
+.prompt-box{background:var(--cream);border:1px solid rgba(26,26,24,.1);border-radius:var(--radius-md);padding:13px 15px;font-size:12.5px;color:var(--ink-muted);line-height:1.65;font-style:italic;margin-bottom:12px;position:relative}
+.prompt-box strong{color:var(--ink);font-style:normal;font-weight:500}
+.btn-copy{width:100%;background:var(--ink);color:#fff;border:none;border-radius:var(--radius-md);padding:10px;font-family:'Sora',sans-serif;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .2s}
+.btn-copy:hover{background:#2d2d2a}
+.btn-copy svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.copy-feedback{font-size:11.5px;color:var(--green-600);text-align:center;margin-top:8px;height:16px;transition:opacity .3s}
+
+/* Export card */
+.export-card{background:var(--white);border-radius:var(--radius-xl);border:1px solid rgba(26,26,24,.08);box-shadow:var(--shadow-md);padding:18px 20px}
+.export-card h3{font-size:14px;font-weight:600;margin-bottom:4px}
+.export-card p{font-size:12px;color:var(--ink-muted);margin-bottom:14px;line-height:1.5}
+.export-btns{display:flex;flex-direction:column;gap:8px}
+.btn-export{border:1.5px solid rgba(26,26,24,.15);background:transparent;border-radius:var(--radius-md);padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--ink);transition:background .18s,border-color .18s}
+.btn-export:hover{background:var(--cream-dark);border-color:rgba(26,26,24,.25)}
+.btn-export svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0}
+.btn-clear{border:none;background:none;font-family:'Sora',sans-serif;font-size:12px;color:var(--red-600);cursor:pointer;padding:4px 0;width:100%;text-align:center;margin-top:4px;opacity:.7;transition:opacity .2s}
+.btn-clear:hover{opacity:1}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.filter-btn{padding:5px 12px;border-radius:99px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(26,26,24,.12);background:transparent;color:var(--ink-muted);transition:all .18s}
+.filter-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.entry{animation:slideIn .22s ease}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 20 20"><path d="M10 2L4 6v8l6 4 6-4V6l-6-4z" stroke-linejoin="round"/><path d="M10 2v12M4 6l6 4 6-4"/></svg>
+      </div>
+      <span class="nav-brand">Resumos<span>Med</span></span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar ao início
+    </a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-tag">Ferramenta de estudo</div>
+    <h1>Caderno de Erros</h1>
+    <p class="page-sub">Anote o que errou, o que ficou confuso ou qualquer curiosidade clínica. Depois exporte tudo e gere flashcards com IA.</p>
+  </div>
+
+  <div class="main-grid">
+    <!-- LEFT: form + list -->
+    <div>
+      <!-- Form -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <div>
+            <h2>Nova anotação</h2>
+            <p>Escreva livremente — pergunta/resposta, erro, curiosidade, o que quiser</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="area-select-row">
+            <button class="area-pill active" data-area="—">Geral</button>
+            <button class="area-pill" data-area="CM">CM</button>
+            <button class="area-pill" data-area="PREV">Prev</button>
+            <button class="area-pill" data-area="PED">Ped</button>
+            <button class="area-pill" data-area="GO">GO</button>
+            <button class="area-pill" data-area="CIR">Cir</button>
+          </div>
+          <textarea id="nota-input" placeholder="Ex: Qual o tratamento de primeira linha para febre maculosa? Doxiciclina — não esperar confirmação laboratorial para iniciar.&#10;&#10;Ou: Errei a questão sobre pré-eclâmpsia — critério de gravidade é PA ≥ 160x110, não 140x90." rows="5"></textarea>
+          <p class="form-hint">Não precisa seguir nenhum formato. A IA vai transformar suas anotações em flashcards depois.</p>
+          <button class="btn-add" onclick="addEntry()">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            Adicionar anotação
+          </button>
+        </div>
+      </div>
+
+      <!-- List -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2>Minhas anotações</h2>
+            <p id="count-label">0 anotações salvas</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="filter-bar" id="filter-bar">
+            <button class="filter-btn active" data-filter="TODOS" onclick="setFilter('TODOS',this)">Todas</button>
+            <button class="filter-btn" data-filter="—" onclick="setFilter('—',this)">Geral</button>
+            <button class="filter-btn" data-filter="CM" onclick="setFilter('CM',this)">CM</button>
+            <button class="filter-btn" data-filter="PREV" onclick="setFilter('PREV',this)">Prev</button>
+            <button class="filter-btn" data-filter="PED" onclick="setFilter('PED',this)">Ped</button>
+            <button class="filter-btn" data-filter="GO" onclick="setFilter('GO',this)">GO</button>
+            <button class="filter-btn" data-filter="CIR" onclick="setFilter('CIR',this)">Cir</button>
+          </div>
+          <div class="entries-wrap" id="entries-list">
+            <div class="empty-state" id="empty-state">
+              <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <p>Nenhuma anotação ainda.<br/>Adicione a primeira acima.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: sidebar -->
+    <div class="sidebar">
+      <!-- Stats -->
+      <div class="card">
+        <div class="card-body" style="padding:18px 20px">
+          <div class="stats-row">
+            <div class="stat"><div class="stat-n" id="stat-total">0</div><div class="stat-label">Total</div></div>
+            <div class="stat"><div class="stat-n" id="stat-hoje">0</div><div class="stat-label">Hoje</div></div>
+            <div class="stat"><div class="stat-n" id="stat-areas">0</div><div class="stat-label">Áreas</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prompt card -->
+      <div class="prompt-card">
+        <div class="prompt-card-header">
+          <div class="prompt-icon">
+            <svg viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          </div>
+          <div>
+            <h3>Gerar flashcards com IA</h3>
+            <p>Use no ChatGPT, Gemini ou Claude</p>
+          </div>
+        </div>
+        <div class="prompt-body">
+          <p style="font-size:12px;color:var(--ink-muted);margin-bottom:10px;line-height:1.5">Exporte suas anotações, abra o chat da IA, cole o prompt abaixo e em seguida cole as anotações.</p>
+          <div class="prompt-box" id="prompt-box">
+            Você vai receber uma lista de anotações de estudo de medicina — podem ser perguntas e respostas, erros de questões ou curiosidades clínicas.<br/><br/>
+            Sua tarefa é transformar cada anotação em <strong>um ou mais flashcards no formato Anki</strong> (frente; verso), exportados como texto simples separado por ponto e vírgula.<br/><br/>
+            Regras:<br/>
+            — Não torne o flashcard fácil demais: evite deixar a resposta óbvia pela frente<br/>
+            — Prefira perguntas de raciocínio clínico a memorização pura<br/>
+            — Se a anotação tiver mais de um conceito importante, divida em flashcards separados<br/>
+            — Mantenha frente e verso curtos e diretos<br/><br/>
+            Formato de saída esperado:<br/>
+            <strong>Frente do card; Verso do card</strong><br/><br/>
+            Aguarde eu enviar as anotações.
+          </div>
+          <button class="btn-copy" onclick="copyPrompt()">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar prompt
+          </button>
+          <div class="copy-feedback" id="copy-feedback"></div>
+        </div>
+      </div>
+
+      <!-- Export card -->
+      <div class="export-card">
+        <h3>Exportar anotações</h3>
+        <p>Exporte suas anotações e cole na IA junto com o prompt acima.</p>
+        <div class="export-btns">
+          <button class="btn-export" onclick="exportTxt()">
+            <svg viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
+            Baixar como .txt
+          </button>
+          <button class="btn-export" onclick="copyAll()">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copiar tudo para área de transferência
+          </button>
+        </div>
+        <button class="btn-clear" onclick="clearAll()">Apagar todas as anotações</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var STORAGE_KEY = 'resumosmed_erros';
+var currentArea = '—';
+var currentFilter = 'TODOS';
+
+function getEntries(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }
+  catch(e){ return []; }
+}
+function saveEntries(arr){ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+function addEntry(){
+  var text = document.getElementById('nota-input').value.trim();
+  if(!text) return;
+  var entries = getEntries();
+  entries.unshift({id: Date.now(), text: text, area: currentArea, date: new Date().toISOString()});
+  saveEntries(entries);
+  document.getElementById('nota-input').value='';
+  render();
+}
+
+function deleteEntry(id){
+  var entries = getEntries().filter(function(e){ return e.id !== id; });
+  saveEntries(entries);
+  render();
+}
+
+function setFilter(f, btn){
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  render();
+}
+
+var AREA_COLORS = {
+  'CM':  {bg:'#E6F1FB', color:'#0C447C'},
+  'PREV':{bg:'#E1F5EE', color:'#085041'},
+  'PED': {bg:'#EEEDFE', color:'#3C3489'},
+  'GO':  {bg:'#FBEAF0', color:'#72243E'},
+  'CIR': {bg:'#FAEEDA', color:'#633806'},
+  '—':   {bg:'#ede9e0', color:'#5a5a55'}
+};
+
+function formatDate(iso){
+  var d = new Date(iso);
+  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' ' + d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+
+function isToday(iso){
+  var d = new Date(iso), n = new Date();
+  return d.getDate()===n.getDate() && d.getMonth()===n.getMonth() && d.getFullYear()===n.getFullYear();
+}
+
+function render(){
+  var all = getEntries();
+  var filtered = currentFilter==='TODOS' ? all : all.filter(function(e){ return e.area===currentFilter; });
+  var list = document.getElementById('entries-list');
+  var empty = document.getElementById('empty-state');
+
+  // stats
+  var areas = new Set(all.map(function(e){ return e.area; }));
+  document.getElementById('stat-total').textContent = all.length;
+  document.getElementById('stat-hoje').textContent  = all.filter(function(e){ return isToday(e.date); }).length;
+  document.getElementById('stat-areas').textContent = areas.size;
+  document.getElementById('count-label').textContent = all.length + (all.length===1?' anotação salva':' anotações salvas');
+
+  // clear old entries (keep empty state el)
+  var nodes = list.querySelectorAll('.entry');
+  nodes.forEach(function(n){ n.remove(); });
+
+  if(filtered.length===0){
+    empty.style.display='block';
+    return;
+  }
+  empty.style.display='none';
+
+  filtered.forEach(function(e){
+    var c = AREA_COLORS[e.area] || AREA_COLORS['—'];
+    var div = document.createElement('div');
+    div.className='entry';
+    div.innerHTML =
+      '<button class="entry-del" onclick="deleteEntry('+e.id+')" title="Apagar">×</button>'+
+      '<div class="entry-top">'+
+        '<span class="entry-badge" style="background:'+c.bg+';color:'+c.color+'">'+e.area+'</span>'+
+        '<span class="entry-date">'+formatDate(e.date)+'</span>'+
+      '</div>'+
+      '<div class="entry-text">'+escHtml(e.text)+'</div>';
+    list.appendChild(div);
+  });
+}
+
+function escHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function exportTxt(){
+  var all = getEntries();
+  if(!all.length){ alert('Nenhuma anotação para exportar.'); return; }
+  var lines = all.map(function(e,i){
+    return '['+(i+1)+'] ('+e.area+') '+e.text;
+  }).join('\n\n---\n\n');
+  var blob = new Blob([lines],{type:'text/plain;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'anotacoes_residencia.txt';
+  a.click();
+}
+
+function copyAll(){
+  var all = getEntries();
+  if(!all.length){ alert('Nenhuma anotação para copiar.'); return; }
+  var text = all.map(function(e,i){
+    return '['+(i+1)+'] ('+e.area+') '+e.text;
+  }).join('\n\n---\n\n');
+  navigator.clipboard.writeText(text).then(function(){
+    showFeedback('✓ Copiado! Agora cole na IA junto com o prompt.');
+  });
+}
+
+function copyPrompt(){
+  var box = document.getElementById('prompt-box');
+  var text = box.innerText || box.textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    showFeedback('✓ Prompt copiado!');
+  });
+}
+
+function showFeedback(msg){
+  var el = document.getElementById('copy-feedback');
+  el.textContent = msg;
+  el.style.opacity='1';
+  setTimeout(function(){ el.style.opacity='0'; el.textContent=''; }, 3000);
+}
+
+function clearAll(){
+  if(!confirm('Tem certeza? Isso vai apagar TODAS as anotações salvas. Esta ação não pode ser desfeita.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  render();
+}
+
+// Area pills
+document.querySelectorAll('.area-pill').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.area-pill').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentArea = btn.dataset.area;
+  });
+});
+
+// Enter to submit (Ctrl+Enter)
+document.getElementById('nota-input').addEventListener('keydown', function(e){
+  if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){ addEntry(); }
+});
+
+render();
+</script>
+</body>
+</html>
