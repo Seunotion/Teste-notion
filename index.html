@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Resumos Med · Residência Médica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+/* ─── Reset & Base ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:#f7f5f0;color:#1a1a18;line-height:1.6;overflow-x:hidden}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ─── CSS Variables ─── */
+:root{
+  --blue-50:#E6F1FB;--blue-200:#85B7EB;--blue-600:#185FA5;--blue-800:#0C447C;
+  --green-50:#E1F5EE;--green-200:#5DCAA5;--green-600:#0F6E56;--green-800:#085041;
+  --purple-50:#EEEDFE;--purple-200:#AFA9EC;--purple-600:#534AB7;--purple-800:#3C3489;
+  --pink-50:#FBEAF0;--pink-200:#ED93B1;--pink-600:#993556;--pink-800:#72243E;
+  --amber-50:#FAEEDA;--amber-200:#EF9F27;--amber-600:#854F0B;--amber-800:#633806;
+  --red-50:#fcebeb;--red-600:#A32D2D;
+  --cream:#f7f5f0;--cream-dark:#ede9e0;--ink:#1a1a18;--ink-muted:#5a5a55;--ink-light:#9a9a93;
+  --white:#ffffff;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.05);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);
+}
+
+/* ─── Nav ─── */
+nav{position:sticky;top:0;z-index:100;background:rgba(247,245,240,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,26,24,.08);padding:0 5vw}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-icon{width:34px;height:34px;background:var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.nav-logo-icon svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.8}
+.nav-brand{font-size:15px;font-weight:600;letter-spacing:-.3px}
+.nav-brand span{color:var(--blue-600)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:14px;color:var(--ink-muted);font-weight:400;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--ink);color:#fff;padding:8px 20px;border-radius:var(--radius-md);font-size:14px;font-weight:500;transition:background .2s,transform .15s}
+.nav-cta:hover{background:#333;transform:translateY(-1px)}
+
+/* ─── Hero ─── */
+.hero{padding:80px 5vw 72px;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 480px;gap:60px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--blue-50);color:var(--blue-800);font-size:12px;font-weight:500;padding:5px 12px;border-radius:99px;border:1px solid #B5D4F4;margin-bottom:20px;letter-spacing:.2px}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--blue-600);border-radius:50%;flex-shrink:0}
+h1.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,58px);font-weight:400;line-height:1.1;letter-spacing:-.5px;margin-bottom:18px;color:var(--ink)}
+h1.hero-title em{font-style:italic;color:var(--blue-600)}
+.hero-sub{font-size:17px;color:var(--ink-muted);line-height:1.65;margin-bottom:36px;font-weight:300}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:#fff;padding:13px 28px;border-radius:var(--radius-md);font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s;cursor:pointer;border:none}
+.btn-primary:hover{background:#2d2d2a;transform:translateY(-1px)}
+.btn-primary svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.btn-secondary{background:transparent;color:var(--ink);padding:13px 24px;border-radius:var(--radius-md);font-size:15px;font-weight:500;border:1.5px solid rgba(26,26,24,.18);display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s;cursor:pointer}
+.btn-secondary:hover{border-color:rgba(26,26,24,.35);background:var(--cream-dark)}
+.hero-visual{position:relative}
+.hero-card-stack{position:relative;height:360px}
+.hero-card{position:absolute;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);overflow:hidden;transition:transform .3s}
+.hc1{width:240px;left:0;top:0;background:#fff;padding:20px;transform:rotate(-3deg);z-index:1}
+.hc2{width:260px;right:0;top:40px;background:#fff;padding:20px;transform:rotate(2deg);z-index:2}
+.hc3{width:200px;left:40px;bottom:0;background:#fff;padding:16px;transform:rotate(1deg);z-index:3}
+.hero-card-area-pill{font-size:10px;font-weight:600;padding:3px 10px;border-radius:99px;display:inline-block;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.hero-card-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.hero-card-bar{height:4px;border-radius:2px;background:#eee;margin-bottom:6px}
+.hero-card-fill{height:4px;border-radius:2px}
+.hero-card-item{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #f0efec}
+.hero-card-item:last-child{border:none}
+.hero-card-item-name{font-size:11px;color:var(--ink-muted);flex:1;padding-right:8px}
+.hero-card-item-n{font-size:10px;font-weight:600;padding:2px 6px;border-radius:99px}
+
+/* ─── Features strip ─── */
+.features-strip{background:var(--cream-dark);border-top:1px solid rgba(26,26,24,.07);border-bottom:1px solid rgba(26,26,24,.07);padding:36px 5vw}
+.features-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px}
+.feat{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px}
+.feat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.feat-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8}
+.feat-label{font-size:13px;font-weight:500}
+.feat-desc{font-size:12px;color:var(--ink-muted);line-height:1.5}
+
+/* ─── Section shell ─── */
+.section{padding:72px 5vw;max-width:1100px;margin:0 auto}
+.section-label{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:400;line-height:1.15;letter-spacing:-.3px;color:var(--ink);margin-bottom:12px}
+.section-sub{font-size:16px;color:var(--ink-muted);font-weight:300;margin-bottom:40px;max-width:560px}
+
+/* ─── Frequency Section ─── */
+.freq-wrap{background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);overflow:hidden;border:1px solid rgba(26,26,24,.07)}
+.freq-header{padding:24px 28px;border-bottom:1px solid rgba(26,26,24,.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:gap;gap:12px}
+.freq-header-left h3{font-size:16px;font-weight:600;margin-bottom:3px}
+.freq-header-left p{font-size:13px;color:var(--ink-muted)}
+.freq-tabs{display:flex;gap:6px;background:var(--cream);border-radius:var(--radius-md);padding:4px}
+.freq-tab{padding:7px 18px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--ink-muted);transition:background .18s,color .18s}
+.freq-tab.active{background:var(--white);color:var(--ink);box-shadow:var(--shadow-sm)}
+.freq-body{padding:24px 28px}
+
+/* ─── Area Blocks ─── */
+.area-block{margin-bottom:28px}
+.area-header{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-radius:var(--radius-md);margin-bottom:10px;border:1px solid transparent}
+.area-title{font-size:14px;font-weight:600}
+.area-count{font-size:12px;font-weight:500}
+.bar-bg{height:5px;border-radius:3px;background:rgba(26,26,24,.08);margin-bottom:12px}
+.bar-fill{height:5px;border-radius:3px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.subtemas{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px}
+.sub-item{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;border-radius:var(--radius-sm);background:rgba(26,26,24,.028);font-size:12.5px;border:1px solid rgba(26,26,24,.05);transition:background .15s}
+.sub-item:hover{background:rgba(26,26,24,.05)}
+.sub-name{color:var(--ink-muted);flex:1;padding-right:8px;line-height:1.4}
+.sub-n{font-weight:600;font-size:11px;padding:2px 8px;border-radius:99px;min-width:22px;text-align:center;flex-shrink:0}
+.freq-note{margin-top:20px;padding:12px 16px;background:var(--cream);border-radius:var(--radius-md);font-size:12px;color:var(--ink-muted);display:flex;gap:20px;flex-wrap:wrap}
+.freq-note span strong{color:var(--ink)}
+
+/* ─── CTA Section ─── */
+.cta-section{background:var(--ink);border-radius:var(--radius-xl);padding:60px 48px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;margin:0 5vw 80px;max-width:1100px;margin-left:auto;margin-right:auto}
+.cta-section h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,3vw,38px);font-weight:400;color:#fff;line-height:1.2;margin-bottom:10px}
+.cta-section p{font-size:15px;color:rgba(255,255,255,.6);font-weight:300}
+.btn-white{background:#fff;color:var(--ink);padding:14px 32px;border-radius:var(--radius-md);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s;cursor:pointer;border:none;white-space:nowrap}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.btn-white svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.5}
+
+/* ─── Footer ─── */
+footer{background:var(--cream-dark);border-top:1px solid rgba(26,26,24,.09);padding:36px 5vw;text-align:center}
+footer p{font-size:13px;color:var(--ink-muted)}
+footer strong{color:var(--ink)}
+
+/* ─── Responsive ─── */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:40px}
+  .hero-visual{display:none}
+  .cta-section{grid-template-columns:1fr;text-align:center}
+  .cta-section>div:last-child{display:flex;justify-content:center}
+  nav .nav-links a:not(.nav-cta){display:none}
+}
+@media(max-width:600px){
+  .subtemas{grid-template-columns:1fr}
+  .freq-header{flex-direction:column;align-items:flex-start}
+  .freq-tabs{width:100%}
+  .freq-tab{flex:1;text-align:center}
+}
+
+/* ─── Animations ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{opacity:0;animation:fadeUp .6s ease forwards}
+.fade-up-1{animation-delay:.1s}
+.fade-up-2{animation-delay:.2s}
+.fade-up-3{animation-delay:.3s}
+.fade-up-4{animation-delay:.4s}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 20 20"><path d="M10 2L4 6v8l6 4 6-4V6l-6-4z" stroke-linejoin="round"/><path d="M10 2v12M4 6l6 4 6-4"/></svg>
+      </div>
+      <span class="nav-brand">Resumos<span>Med</span></span>
+    </div>
+    <div class="nav-links">
+      <a href="#frequencia">Frequência</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#LINK_KIWIFY" class="nav-cta">Acessar resumos →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div style="max-width:1100px;margin:0 auto;padding:0 5vw">
+  <div class="hero" style="padding-left:0;padding-right:0">
+    <div>
+      <div class="hero-tag fade-up fade-up-1">Para residência médica · ENAMED · ENARE</div>
+      <h1 class="hero-title fade-up fade-up-2">Estude com foco no que<br/><em>realmente cai</em> nas provas</h1>
+      <p class="hero-sub fade-up fade-up-3">Resumos organizados por especialidade, baseados no histórico real das provas de residência médica. Menos enrolação, mais aprovação.</p>
+      <div class="hero-actions fade-up fade-up-4">
+        <a href="#LINK_KIWIFY" class="btn-primary">
+          <svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          Ver todos os resumos
+        </a>
+        <a href="#frequencia" class="btn-secondary">
+          Ver frequência das provas ↓
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <!-- Card CM -->
+        <div class="hc1 hero-card">
+          <div class="hero-card-area-pill" style="background:var(--blue-50);color:var(--blue-800)">CM</div>
+          <div class="hero-card-title">Clínica Médica</div>
+          <div class="hero-card-bar"><div class="hero-card-fill" style="width:35%;background:#378ADD"></div></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Psiquiatria / Saúde mental</span><span class="hero-card-item-n" style="background:var(--blue-50);color:var(--blue-800)">9</span></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Infectologia</span><span class="hero-card-item-n" style="background:var(--blue-50);color:var(--blue-800)">6</span></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Cardiologia / HAS</span><span class="hero-card-item-n" style="background:var(--blue-50);color:var(--blue-800)">5</span></div>
+        </div>
+        <!-- Card GO -->
+        <div class="hc2 hero-card">
+          <div class="hero-card-area-pill" style="background:var(--pink-50);color:var(--pink-800)">GO</div>
+          <div class="hero-card-title">Ginecologia & Obstetrícia</div>
+          <div class="hero-card-bar"><div class="hero-card-fill" style="width:15%;background:#D4537E"></div></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Pré-natal / Alto risco</span><span class="hero-card-item-n" style="background:var(--pink-50);color:var(--pink-800)">3</span></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Anticoncepção</span><span class="hero-card-item-n" style="background:var(--pink-50);color:var(--pink-800)">3</span></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Trabalho de parto</span><span class="hero-card-item-n" style="background:var(--pink-50);color:var(--pink-800)">3</span></div>
+        </div>
+        <!-- Card PED -->
+        <div class="hc3 hero-card">
+          <div class="hero-card-area-pill" style="background:var(--purple-50);color:var(--purple-800)">PED</div>
+          <div class="hero-card-title">Pediatria</div>
+          <div class="hero-card-bar"><div class="hero-card-fill" style="width:18%;background:#7F77DD"></div></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Neonatologia</span><span class="hero-card-item-n" style="background:var(--purple-50);color:var(--purple-800)">3</span></div>
+          <div class="hero-card-item"><span class="hero-card-item-name">Puericultura</span><span class="hero-card-item-n" style="background:var(--purple-50);color:var(--purple-800)">3</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEATURES STRIP ─── -->
+<div class="features-strip">
+  <div class="features-inner">
+    <div class="feat">
+      <div class="feat-icon" style="background:var(--blue-50);color:var(--blue-600)">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      </div>
+      <span class="feat-label">Baseado nas provas</span>
+      <span class="feat-desc">Conteúdo mapeado a partir do histórico real do ENAMED e ENARE</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:var(--green-50);color:var(--green-600)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <span class="feat-label">Organizado por cores</span>
+      <span class="feat-desc">5 especialidades com identidade visual distinta para fixar melhor</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:var(--purple-50);color:var(--purple-600)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <span class="feat-label">Pronto para estudar</span>
+      <span class="feat-desc">Acesse no Notion em qualquer dispositivo, a qualquer momento</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:var(--amber-50);color:var(--amber-600)">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <span class="feat-label">Alta qualidade</span>
+      <span class="feat-desc">Resumos detalhados com esquemas, tabelas e correlações clínicas</span>
+    </div>
+    <div class="feat">
+      <div class="feat-icon" style="background:var(--pink-50);color:var(--pink-600)">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <span class="feat-label">Compra segura</span>
+      <span class="feat-desc">Plataforma Kiwify com garantia e suporte incluídos</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FREQUENCY SECTION ─── -->
+<section id="frequencia" class="section">
+  <div class="section-label">Inteligência de prova</div>
+  <h2 class="section-title">Frequência dos temas cobrados</h2>
+  <p class="section-sub">Veja exatamente o que já caiu no ENAMED e no ENARE. Use isso para priorizar seus estudos.</p>
+
+  <div class="freq-wrap">
+    <div class="freq-header">
+      <div class="freq-header-left">
+        <h3>Distribuição por área e subtema</h3>
+        <p>Análise completa de questões por especialidade</p>
+      </div>
+      <div class="freq-tabs">
+        <button class="freq-tab active" onclick="showProva('enamed')">ENAMED 2025</button>
+        <button class="freq-tab" onclick="showProva('enare')">ENARE 2024</button>
+      </div>
+    </div>
+
+    <!-- ─── ENAMED 2025 ─── -->
+    <div class="freq-body" id="tab-enamed">
+
+      <!-- CM -->
+      <div class="area-block">
+        <div class="area-header" style="background:#E6F1FB;border-color:#B5D4F4">
+          <span class="area-title" style="color:#0C447C">Clínica Médica</span>
+          <span class="area-count" style="color:#185FA5">35 questões · 35%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:35%;background:#378ADD"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Psiquiatria / Saúde mental</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">9</span></div>
+          <div class="sub-item"><span class="sub-name">Infectologia (sepse, TB, dengue, malária, esporotricose)</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">6</span></div>
+          <div class="sub-item"><span class="sub-name">Cardiologia / HAS / ICC / IAM</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">5</span></div>
+          <div class="sub-item"><span class="sub-name">Endocrinologia / DM / Tireoide</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">4</span></div>
+          <div class="sub-item"><span class="sub-name">Reumatologia (AR, espondilite, LES)</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">3</span></div>
+          <div class="sub-item"><span class="sub-name">Neurologia / AVE / Parkinson</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">3</span></div>
+          <div class="sub-item"><span class="sub-name">Gastroenterologia (colite, pancreatite, úlcera)</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">3</span></div>
+          <div class="sub-item"><span class="sub-name">Hematologia / Trombofilia</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">2</span></div>
+          <div class="sub-item"><span class="sub-name">Intoxicação / Envenenamento</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">2</span></div>
+          <div class="sub-item"><span class="sub-name">Nefrologia / Síndrome nefrótica</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Pneumologia / Derrame pleural</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Distúrbio ácido-base</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+        </div>
+      </div>
+
+      <!-- PREVENTIVA -->
+      <div class="area-block">
+        <div class="area-header" style="background:#E1F5EE;border-color:#9FE1CB">
+          <span class="area-title" style="color:#085041">Medicina Preventiva / Medicina de Família</span>
+          <span class="area-count" style="color:#0F6E56">24 questões · 24%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:24%;background:#1D9E75"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Rastreamento / Prevenção / Níveis de atenção</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">3</span></div>
+          <div class="sub-item"><span class="sub-name">IST / HIV / PrEP / PEP / Sífilis</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">3</span></div>
+          <div class="sub-item"><span class="sub-name">Tuberculose / SINAN / Notificação</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">3</span></div>
+          <div class="sub-item"><span class="sub-name">Vacinação / Calendário de imunização</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">3</span></div>
+          <div class="sub-item"><span class="sub-name">Epidemiologia / Bioestatística / Ensaio clínico</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">2</span></div>
+          <div class="sub-item"><span class="sub-name">Vigilância em saúde / Controle de vetores</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">2</span></div>
+          <div class="sub-item"><span class="sub-name">Saúde indígena / Populações vulneráveis</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">2</span></div>
+          <div class="sub-item"><span class="sub-name">Declaração de óbito / Ética / Legislação</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">2</span></div>
+          <div class="sub-item"><span class="sub-name">Idoso / ILPI / Violência institucional</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">2</span></div>
+          <div class="sub-item"><span class="sub-name">Saúde do trabalhador / Agrotóxico</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Raiva / Profilaxia pós-exposição animal</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Dor lombar / Condições prevalentes na APS</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Identidade de gênero / Saúde trans</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+        </div>
+      </div>
+
+      <!-- PEDIATRIA -->
+      <div class="area-block">
+        <div class="area-header" style="background:#EEEDFE;border-color:#CECBF6">
+          <span class="area-title" style="color:#3C3489">Pediatria</span>
+          <span class="area-count" style="color:#534AB7">18 questões · 18%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:18%;background:#7F77DD"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Neonatologia / RN (hérnia diafragmática, choque, onfalite)</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">3</span></div>
+          <div class="sub-item"><span class="sub-name">Puericultura / Desenvolvimento / Reflexos primitivos</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">3</span></div>
+          <div class="sub-item"><span class="sub-name">Neurologia pediátrica (convulsão febril, esclerose tuberosa)</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">2</span></div>
+          <div class="sub-item"><span class="sub-name">Transtornos comportamentais / TDAH / TOD</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">2</span></div>
+          <div class="sub-item"><span class="sub-name">Crescimento / Baixa estatura / Acantose</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">2</span></div>
+          <div class="sub-item"><span class="sub-name">Emergência pediátrica / Sepse / Choque</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">2</span></div>
+          <div class="sub-item"><span class="sub-name">Vacinação infantil</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Febre reumática</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Cetoacidose diabética pediátrica</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Anemia ferropriva</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Asma / Urgência respiratória pediátrica</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Violência / Notificação Conselho Tutelar</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+        </div>
+      </div>
+
+      <!-- GO -->
+      <div class="area-block">
+        <div class="area-header" style="background:#FBEAF0;border-color:#F4C0D1">
+          <span class="area-title" style="color:#72243E">Ginecologia e Obstetrícia</span>
+          <span class="area-count" style="color:#993556">15 questões · 15%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:15%;background:#D4537E"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Pré-natal / Alto risco</span><span class="sub-n" style="background:#FBEAF0;color:#993556">3</span></div>
+          <div class="sub-item"><span class="sub-name">Trabalho de parto / Parto / Puerpério</span><span class="sub-n" style="background:#FBEAF0;color:#993556">3</span></div>
+          <div class="sub-item"><span class="sub-name">Anticoncepção / Contraceptivos</span><span class="sub-n" style="background:#FBEAF0;color:#993556">3</span></div>
+          <div class="sub-item"><span class="sub-name">Colpocitologia / Lesão cervical / ASC-H</span><span class="sub-n" style="background:#FBEAF0;color:#993556">2</span></div>
+          <div class="sub-item"><span class="sub-name">Sífilis na gestação</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Urgência obstétrica (DPP, rotura)</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Insuficiência cervical / Prematuridade</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Endometriose / Ginecologia geral</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Amenorreia / Insensibilidade androgênica</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Candidíase / Corrimento vaginal</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Sangramento pós-menopausa / Leiomioma</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+        </div>
+      </div>
+
+      <!-- CIRURGIA -->
+      <div class="area-block">
+        <div class="area-header" style="background:#FAEEDA;border-color:#FAC775">
+          <span class="area-title" style="color:#633806">Cirurgia</span>
+          <span class="area-count" style="color:#854F0B">8 questões · 8%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:8%;background:#BA7517"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Trauma / TCE (epidural, subdural)</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">2</span></div>
+          <div class="sub-item"><span class="sub-name">Hérnias / Diverticulite / Abscesso</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">2</span></div>
+          <div class="sub-item"><span class="sub-name">Vias biliares / Coledocolitíase / Neoplasia pancreática</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">2</span></div>
+          <div class="sub-item"><span class="sub-name">Abdome agudo / Apendicite</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Trauma vascular / Hemorragia externa</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+        </div>
+      </div>
+
+      <div class="freq-note">
+        <span>Total: <strong>100 questões</strong> (Q10 anulada, contada em Cirurgia)</span>
+        <span>Psiquiatria alocada em Clínica Médica conforme estrutura do Enammed</span>
+      </div>
+    </div>
+
+    <!-- ─── ENARE 2024 ─── -->
+    <div class="freq-body" id="tab-enare" style="display:none">
+
+      <!-- CM -->
+      <div class="area-block">
+        <div class="area-header" style="background:#E6F1FB;border-color:#B5D4F4">
+          <span class="area-title" style="color:#0C447C">Clínica Médica</span>
+          <span class="area-count" style="color:#185FA5">20 questões · 20%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:20%;background:#378ADD"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Reumatologia (AR, artrite psoriática, osteoporose)</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">3</span></div>
+          <div class="sub-item"><span class="sub-name">Neurologia (Parkinson, paralisia de Bell)</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">2</span></div>
+          <div class="sub-item"><span class="sub-name">Pneumonia adquirida na comunidade / CURB-65</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">2</span></div>
+          <div class="sub-item"><span class="sub-name">Hepatologia / Cirrose / Child-Pugh / HDA por varizes</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">2</span></div>
+          <div class="sub-item"><span class="sub-name">Ética médica (comunicação, autonomia, publicidade)</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">2</span></div>
+          <div class="sub-item"><span class="sub-name">Psiquiatria / Delirium tremens</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Nefrologia / DRC / Cockcroft-Gault</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">IST / Sífilis / Reação de Jarisch-Herxheimer</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Oncologia / Síndromes paraneoplásicas pulmonares</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Infectologia / Hanseníase</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Endocrinologia / Hipocalcemia pós-tireoidectomia</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Cardiologia / Arritmia / FA instável</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Pneumologia / Derrame pleural / Critérios de Light</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">RCP / Comunicação em equipe de emergência</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+          <div class="sub-item"><span class="sub-name">Trombolíticos no IAM / Contraindicações</span><span class="sub-n" style="background:#E6F1FB;color:#185FA5">1</span></div>
+        </div>
+      </div>
+
+      <!-- CIRURGIA -->
+      <div class="area-block">
+        <div class="area-header" style="background:#FAEEDA;border-color:#FAC775">
+          <span class="area-title" style="color:#633806">Cirurgia</span>
+          <span class="area-count" style="color:#854F0B">20 questões · 20%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:20%;background:#BA7517"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Ética cirúrgica (biópsia, live, sigilo, estoma)</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">3</span></div>
+          <div class="sub-item"><span class="sub-name">Obstrução intestinal (aderências / conduta inicial)</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">2</span></div>
+          <div class="sub-item"><span class="sub-name">Cicatrização de feridas (fases, ordem cronológica)</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Apendicite aguda perfurada / microbiologia</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Anestesiologia / indução / cetamina</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Complicações de tireoidectomia</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Tromboembolismo venoso / Escore de Caprini</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Cirurgia de Hartmann / diverticulite complicada</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">DII (Crohn vs. Colite Ulcerativa)</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Child-Pugh / cirurgia hepática / cirrose</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Pseudocisto pancreático / drenagem endoscópica</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Apendicite na gestação / diagnóstico por imagem</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Síndrome de dumping precoce pós-gastrectomia</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Câncer colorretal (genes, prevenção)</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Melanoma / biópsia excisional / conduta</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+          <div class="sub-item"><span class="sub-name">Colangite / Tríade de Charcot</span><span class="sub-n" style="background:#FAEEDA;color:#854F0B">1</span></div>
+        </div>
+      </div>
+
+      <!-- PEDIATRIA -->
+      <div class="area-block">
+        <div class="area-header" style="background:#EEEDFE;border-color:#CECBF6">
+          <span class="area-title" style="color:#3C3489">Pediatria</span>
+          <span class="area-count" style="color:#534AB7">20 questões · 20%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:20%;background:#7F77DD"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Crescimento / Baixa estatura / avaliação</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Cardiologia pediátrica / CIV / ausculta</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Abdome agudo pediátrico / conduta e comunicação</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Anafilaxia / adrenalina / picada de abelha</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Cetoacidose diabética pediátrica</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Epilepsia mioclônica juvenil</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Zinco na diarreia aguda</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Insuficiência respiratória em crianças</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Diabetes mellitus tipo 1 na infância</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Obesidade pediátrica / IMC / conduta</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Alergia à Proteína do Leite de Vaca vs. Intolerância à Lactose</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Drenagem torácica / pneumonia estafilocócica</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Doença falciforme</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Displasia do desenvolvimento do quadril / Ortolani</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Síndrome hemolítica urêmica</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Tuberculose miliar pediátrica</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Bronquiolite / tratamento de suporte</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Aleitamento materno / padrão de evacuação neonatal</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Exantema súbito (roséola)</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+          <div class="sub-item"><span class="sub-name">Leucemia linfocítica aguda</span><span class="sub-n" style="background:#EEEDFE;color:#534AB7">1</span></div>
+        </div>
+      </div>
+
+      <!-- GO -->
+      <div class="area-block">
+        <div class="area-header" style="background:#FBEAF0;border-color:#F4C0D1">
+          <span class="area-title" style="color:#72243E">Ginecologia e Obstetrícia</span>
+          <span class="area-count" style="color:#993556">20 questões · 20%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:20%;background:#D4537E"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Câncer de ovário / fatores de risco</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Doença inflamatória pélvica</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Cistos vaginais (Gartner vs. Müller)</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Líquen escleroso / clobetasol</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Candidíase vaginal</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">DIU de levonorgestrel / critérios de elegibilidade</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Fisiologia ovariana / hormônios secretados</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Sangramento pós-menopausa / histeroscopia</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Sífilis secundária / condiloma plano</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Mamografia / BI-RADS 0 / conduta</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Doença trofoblástica gestacional / mola</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Toxoplasmose na gestação / prevenção</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Pré-eclâmpsia grave / sulfato de magnésio</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Herpes genital na gestação / aciclovir</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Laqueadura tubária / legislação atual</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Restrição de crescimento intrauterino / Doppler</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Trombofilias adquiridas</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Fórceps / variedades e tipos</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Hemorragia pós-parto / laceração</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+          <div class="sub-item"><span class="sub-name">Circulação fetal / canal arterial / fisiologia</span><span class="sub-n" style="background:#FBEAF0;color:#993556">1</span></div>
+        </div>
+      </div>
+
+      <!-- PREVENTIVA -->
+      <div class="area-block">
+        <div class="area-header" style="background:#E1F5EE;border-color:#9FE1CB">
+          <span class="area-title" style="color:#085041">Medicina Preventiva / Medicina de Família e Comunidade</span>
+          <span class="area-count" style="color:#0F6E56">20 questões · 20%</span>
+        </div>
+        <div class="bar-bg"><div class="bar-fill" style="width:20%;background:#1D9E75"></div></div>
+        <div class="subtemas">
+          <div class="sub-item"><span class="sub-name">Imunidade de rebanho / vacinação</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Epidemiologia / Estudo de caso-controle</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Fisiopatologia DM tipo 2</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Microcefalia / vírus Zika / definição</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Vacina Penta / Haemophilus influenzae</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Febre maculosa / notificação / doxiciclina</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Pré-natal de risco habitual / ganho de peso</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Determinantes sociais / tuberculose</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Avaliação multidimensional do idoso</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Amigdalite bacteriana / amoxicilina</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Artrose / comunicação empática / médico de família</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">HAS / rastreio de câncer de cólon</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Gravidez indesejada / abordagem</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Segurança do paciente / qualidade diagnóstica</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">PSA / rastreio / decisão compartilhada</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Sutura em criança / anestesia local</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Atividade física / recomendações por faixa etária</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Hesitação vacinal / comunicação com paciente</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">HIV / Pneumocystis jirovecii</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+          <div class="sub-item"><span class="sub-name">Cuidado multiprofissional / projeto terapêutico / PCD</span><span class="sub-n" style="background:#E1F5EE;color:#0F6E56">1</span></div>
+        </div>
+      </div>
+
+      <div class="freq-note">
+        <span>Total: <strong>100 questões</strong></span>
+        <span>Distribuição exatamente 20 questões por área — estrutura única desta prova</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<div style="padding:0 5vw;max-width:1100px;margin:0 auto 0">
+  <div class="cta-section" style="margin:0 0 80px">
+    <div>
+      <h2>Pronto para estudar com mais<br/>eficiência e foco?</h2>
+      <p>Acesse os resumos completos, organizados e atualizados para as provas de residência médica.</p>
+    </div>
+    <div>
+      <a href="#LINK_KIWIFY" class="btn-white">
+        Quero os resumos
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer id="sobre">
+  <p>Feito por <strong>um médico</strong> para quem quer passar · ResumsMed · 2025</p>
+  <p style="margin-top:6px;font-size:12px;color:#b0b09a">Para dúvidas, entre em contato pelo link dos resumos.</p>
+</footer>
+
+<script>
+function showProva(id){
+  document.getElementById('tab-enamed').style.display = id==='enamed'?'block':'none';
+  document.getElementById('tab-enare').style.display  = id==='enare' ?'block':'none';
+  document.querySelectorAll('.freq-tab').forEach(function(t,i){
+    t.classList.toggle('active', (i===0&&id==='enamed')||(i===1&&id==='enare'));
+  });
+}
+// Animate bars on scroll
+var observed = false;
+function animateBars(){
+  if(observed) return;
+  observed = true;
+  document.querySelectorAll('.bar-fill').forEach(function(el){
+    var w = el.style.width;
+    el.style.width = '0';
+    setTimeout(function(){ el.style.width = w; }, 120);
+  });
+}
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) animateBars(); });
+},{threshold:.1});
+var freq = document.getElementById('frequencia');
+if(freq) io.observe(freq);
+</script>
+</body>
+</html>
