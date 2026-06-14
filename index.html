@@ -127,12 +127,26 @@ footer p{font-size:13px;color:var(--ink-muted)}
 footer strong{color:var(--ink)}
 
 /* ─── Responsive ─── */
+/* ─── Hamburguer ─── */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--radius-sm)}
+.nav-hamburger span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .25s,width .25s}
+.nav-hamburger span:nth-child(2){width:70%}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;width:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(247,245,240,.97);backdrop-filter:blur(16px);z-index:99;flex-direction:column;padding:32px 5vw;gap:6px}
+.nav-mobile-menu.open{display:flex}
+.nav-mobile-menu a{font-size:18px;font-weight:500;color:var(--ink-muted);padding:14px 0;border-bottom:1px solid rgba(26,26,24,.07);transition:color .2s}
+.nav-mobile-menu a:hover{color:var(--ink)}
+.nav-mobile-menu .nav-cta{background:var(--ink);color:#fff;padding:14px 24px;border-radius:var(--radius-md);text-align:center;border:none;margin-top:12px;font-size:16px}
+
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;gap:40px}
   .hero-visual{display:none}
   .cta-section{grid-template-columns:1fr;text-align:center}
   .cta-section>div:last-child{display:flex;justify-content:center}
-  nav .nav-links a:not(.nav-cta){display:none}
+  nav .nav-links{display:none}
+  .nav-hamburger{display:flex}
 }
 @media(max-width:600px){
   .subtemas{grid-template-columns:1fr}
@@ -168,8 +182,18 @@ footer strong{color:var(--ink)}
       <a href="#sobre">Sobre</a>
       <a href="https://pay.kiwify.com.br/HjT7xH2" class="nav-cta">Acessar resumos →</a>
     </div>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="nav-mobile-menu" id="mobile-menu">
+  <a href="#frequencia" onclick="toggleMenu()">Frequência das provas</a>
+  <a href="temas.html" onclick="toggleMenu()">Temas mais cobrados</a>
+  <a href="erros.html" onclick="toggleMenu()">Caderno de Erros</a>
+  <a href="#sobre" onclick="toggleMenu()">Sobre</a>
+  <a href="https://pay.kiwify.com.br/HjT7xH2" class="nav-cta">Acessar resumos →</a>
+</div>
 
 <!-- ─── HERO ─── -->
 <div style="max-width:1100px;margin:0 auto;padding:0 5vw">
@@ -577,6 +601,13 @@ footer strong{color:var(--ink)}
 </footer>
 
 <script>
+function toggleMenu(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobile-menu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+}
 function showProva(id){
   document.getElementById('tab-enamed').style.display = id==='enamed'?'block':'none';
   document.getElementById('tab-enare').style.display  = id==='enare' ?'block':'none';
