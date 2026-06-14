@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Temas Mais Cobrados · ResumsMed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:#f7f5f0;color:#1a1a18;line-height:1.6;min-height:100vh}
+
+:root{
+  --blue-50:#E6F1FB;--blue-100:#cce3f8;--blue-600:#185FA5;--blue-800:#0C447C;
+  --green-50:#E1F5EE;--green-100:#c3ead d;--green-600:#0F6E56;--green-800:#085041;
+  --purple-50:#EEEDFE;--purple-600:#534AB7;--purple-800:#3C3489;
+  --pink-50:#FBEAF0;--pink-600:#993556;--pink-800:#72243E;
+  --amber-50:#FAEEDA;--amber-600:#854F0B;--amber-800:#633806;
+  --red-50:#FCEBEB;--red-600:#A32D2D;
+  --cream:#f7f5f0;--cream-dark:#ede9e0;--ink:#1a1a18;--ink-muted:#5a5a55;--ink-light:#9a9a93;
+  --white:#ffffff;
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:24px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07);
+  --shadow-md:0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.10);
+}
+
+/* Nav */
+nav{background:rgba(247,245,240,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,26,24,.08);padding:0 5vw;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-icon{width:30px;height:30px;background:var(--ink);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.nav-logo-icon svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:1.8}
+.nav-brand{font-size:14px;font-weight:600;color:var(--ink)}
+.nav-brand span{color:var(--blue-600)}
+.nav-back{font-size:13px;color:var(--ink-muted);display:flex;align-items:center;gap:5px;transition:color .2s;text-decoration:none}
+.nav-back:hover{color:var(--ink)}
+.nav-back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* Page */
+.page{max-width:1100px;margin:0 auto;padding:44px 5vw 80px}
+
+.page-tag{display:inline-flex;align-items:center;gap:6px;background:var(--blue-50);color:var(--blue-800);font-size:12px;font-weight:500;padding:4px 12px;border-radius:99px;border:1px solid #B5D4F4;margin-bottom:14px}
+.page-tag::before{content:'';width:6px;height:6px;background:var(--blue-600);border-radius:50%}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:10px}
+h1 em{font-style:italic;color:var(--blue-600)}
+.page-sub{font-size:15px;color:var(--ink-muted);font-weight:300;max-width:600px;margin-bottom:40px}
+
+/* Area tabs */
+.area-tabs-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.area-tab{display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:99px;font-size:13px;font-weight:500;cursor:pointer;border:1.5px solid transparent;background:var(--white);color:var(--ink-muted);transition:all .2s;box-shadow:var(--shadow-sm)}
+.area-tab:hover{border-color:rgba(26,26,24,.15);color:var(--ink)}
+.area-tab .tab-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.area-tab.active{color:var(--ink)}
+
+.area-tab[data-area="CM"].active{background:var(--blue-50);border-color:#B5D4F4;color:var(--blue-800)}
+.area-tab[data-area="CIR"].active{background:var(--amber-50);border-color:#FAC775;color:var(--amber-800)}
+.area-tab[data-area="PED"].active{background:var(--purple-50);border-color:#CECBF6;color:var(--purple-800)}
+.area-tab[data-area="OBS"].active{background:var(--pink-50);border-color:#F4C0D1;color:var(--pink-800)}
+.area-tab[data-area="GIN"].active{background:#FEF0FB;border-color:#EDBBEA;color:#6B2466}
+.area-tab[data-area="PREV"].active{background:var(--green-50);border-color:#9FE1CB;color:var(--green-800)}
+
+/* Panel */
+.panel{display:none}
+.panel.active{display:block}
+
+/* Panel header */
+.panel-header{border-radius:var(--radius-xl);padding:24px 28px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.panel-header h2{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400}
+.panel-header p{font-size:13px;opacity:.75;margin-top:3px}
+.panel-badge{font-size:12px;font-weight:600;padding:6px 16px;border-radius:99px;background:rgba(255,255,255,.35);backdrop-filter:blur(4px)}
+
+/* Subtopics grid */
+.subtopics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:24px}
+
+/* Subtopic card */
+.sub-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid rgba(26,26,24,.07);box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow .2s,transform .2s;cursor:default}
+.sub-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.sub-card-header{padding:14px 16px 10px;display:flex;align-items:flex-start;gap:12px}
+.rank-badge{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.sub-card-title{font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35;flex:1}
+.sub-card-pct{font-size:12px;font-weight:500;margin-top:3px}
+.sub-card-bar-wrap{padding:0 16px 14px}
+.sub-card-bar-bg{height:4px;border-radius:2px;background:rgba(26,26,24,.08)}
+.sub-card-bar-fill{height:4px;border-radius:2px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+
+/* Topics list inside card */
+.sub-card-topics{padding:0 16px 14px;display:flex;flex-direction:column;gap:4px}
+.topic-item{display:flex;align-items:baseline;gap:6px;font-size:12px;color:var(--ink-muted);line-height:1.4}
+.topic-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+
+/* Star highlight */
+.star-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;margin-left:6px;vertical-align:middle}
+
+/* Info footer */
+.info-footer{background:var(--white);border-radius:var(--radius-lg);border:1px solid rgba(26,26,24,.07);padding:14px 18px;font-size:12px;color:var(--ink-muted);display:flex;gap:6px;align-items:flex-start}
+.info-footer svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0;margin-top:2px;opacity:.5}
+
+/* CTA banner */
+.cta-banner{background:var(--ink);border-radius:var(--radius-xl);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px}
+.cta-banner h3{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:#fff;margin-bottom:6px}
+.cta-banner p{font-size:13px;color:rgba(255,255,255,.6)}
+.btn-white{background:#fff;color:var(--ink);padding:12px 28px;border-radius:var(--radius-md);font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,box-shadow .15s;white-space:nowrap;text-decoration:none}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.btn-white svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5}
+
+@media(max-width:600px){
+  .subtopics-grid{grid-template-columns:1fr}
+  .cta-banner{padding:28px 24px}
+  .area-tab span.tab-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 20 20"><path d="M10 2L4 6v8l6 4 6-4V6l-6-4z" stroke-linejoin="round"/><path d="M10 2v12M4 6l6 4 6-4"/></svg>
+      </div>
+      <span class="nav-brand">Resumos<span>Med</span></span>
+    </a>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar ao início
+    </a>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-tag">Histórico 2011–2026</div>
+  <h1>Temas mais cobrados no <em>ENAMED</em></h1>
+  <p class="page-sub">Os assuntos com maior frequência histórica por grande área. Use para priorizar seus estudos e não perder pontos nos temas certos.</p>
+
+  <!-- Area tabs -->
+  <div class="area-tabs-wrap">
+    <button class="area-tab active" data-area="CM" onclick="showArea('CM',this)">
+      <span class="tab-dot" style="background:#378ADD"></span>
+      <span class="tab-label">Clínica Médica</span>
+    </button>
+    <button class="area-tab" data-area="CIR" onclick="showArea('CIR',this)">
+      <span class="tab-dot" style="background:#BA7517"></span>
+      <span class="tab-label">Cirurgia</span>
+    </button>
+    <button class="area-tab" data-area="PED" onclick="showArea('PED',this)">
+      <span class="tab-dot" style="background:#7F77DD"></span>
+      <span class="tab-label">Pediatria</span>
+    </button>
+    <button class="area-tab" data-area="OBS" onclick="showArea('OBS',this)">
+      <span class="tab-dot" style="background:#D4537E"></span>
+      <span class="tab-label">Obstetrícia</span>
+    </button>
+    <button class="area-tab" data-area="GIN" onclick="showArea('GIN',this)">
+      <span class="tab-dot" style="background:#C060B8"></span>
+      <span class="tab-label">Ginecologia</span>
+    </button>
+    <button class="area-tab" data-area="PREV" onclick="showArea('PREV',this)">
+      <span class="tab-dot" style="background:#1D9E75"></span>
+      <span class="tab-label">Preventiva / MFC</span>
+    </button>
+  </div>
+
+  <!-- ═══ CLÍNICA MÉDICA ═══ -->
+  <div class="panel active" id="panel-CM">
+    <div class="panel-header" style="background:linear-gradient(135deg,#E6F1FB,#cde4f7);border:1px solid #B5D4F4">
+      <div>
+        <h2 style="color:#0C447C">Clínica Médica</h2>
+        <p style="color:#185FA5">Top temas por subespecialidade · frequência histórica ENAMED</p>
+      </div>
+      <span class="panel-badge" style="color:#0C447C">CM</span>
+    </div>
+    <div class="subtopics-grid">
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">1</div>
+          <div><div class="sub-card-title">Endocrinologia <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐ top</span></div><div class="sub-card-pct" style="color:#378ADD">DM 45,78% · Tireoide 32,53%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:90%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Diabetes mellitus — complicações agudas e crônicas, insulinoterapia</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Tireoide — hipotireoidismo, tireotoxicose, avaliação diagnóstica</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Obesidade e síndrome metabólica</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Metabolismo ósseo — osteoporose e doença de Paget</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">2</div>
+          <div><div class="sub-card-title">Hepatologia</div><div class="sub-card-pct" style="color:#378ADD">Hepatites virais 56% <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐</span></div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:82%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Hepatites virais (A, B, C, D, E)</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Complicações da cirrose hepática</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Hepatopatias autoimunes</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Tumores hepáticos</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">3</div>
+          <div><div class="sub-card-title">Cardiologia</div><div class="sub-card-pct" style="color:#378ADD">HAS · DAC · Arritmias — 28,57% cada</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:75%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>HAS — tratamento e HAS complicada</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>IAM com supra, SCASSST, dislipidemia</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>FA e flutter, taquiarritmias, PCR</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Insuficiência cardíaca</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">4</div>
+          <div><div class="sub-card-title">Gastroenterologia</div><div class="sub-card-pct" style="color:#378ADD">Neoplasias digestivas 31,87%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:68%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Neoplasias do sistema digestivo (cólon, estômago, esôfago, pâncreas)</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>DII — doença de Crohn e colite ulcerativa</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Hemorragia digestiva alta varicosa e baixa</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Pancreatite aguda e crônica</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">5</div>
+          <div><div class="sub-card-title">Infectologia</div><div class="sub-card-pct" style="color:#378ADD">TB 13,11% · Arboviroses 13,11%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:60%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Tuberculose</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Arboviroses — dengue, chikungunya, zika</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Infecções do SNC — meningites e meningoencefalites</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>ISTs — sífilis e HIV/AIDS</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">6</div>
+          <div><div class="sub-card-title">Psiquiatria</div><div class="sub-card-pct" style="color:#378ADD">Dependência química 21,15%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:52%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Dependência química e álcool</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Transtornos de humor — depressão e TAB</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Intoxicações exógenas</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Psiquiatria infantil e psicofarmacologia</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">7</div>
+          <div><div class="sub-card-title">Reumatologia</div><div class="sub-card-pct" style="color:#378ADD">Artropatias inflamatórias 30,30%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:44%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>AR, espondiloartrite, artrites microcristalinas</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Doenças autoimunes — LES, esclerodermia</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Artropatias infecciosas</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Síndromes dolorosas crônicas — fibromialgia</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">8</div>
+          <div><div class="sub-card-title">Neurologia</div><div class="sub-card-pct" style="color:#378ADD">AVC · TCE · Cefaleia — 16,67% cada</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:38%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Coma e alterações da consciência</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>AVC isquêmico e hemorrágico</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>TCE e distúrbios do movimento</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Epilepsias e demências</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">9</div>
+          <div><div class="sub-card-title">Pneumologia</div><div class="sub-card-pct" style="color:#378ADD">Asma 22,73% · Derrame pleural 20,45%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:30%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Asma — diagnóstico e manejo</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Derrame pleural</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>DPOC</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Câncer de pulmão e TEP</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E6F1FB;color:#0C447C">10</div>
+          <div><div class="sub-card-title">Hematologia</div><div class="sub-card-pct" style="color:#378ADD">Hemoglobinopatias 20,83%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:24%;background:#378ADD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Hemoglobinopatias e anemias hemolíticas</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Hemostasia e coagulopatias</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Linfomas e leucemias</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#378ADD"></span>Anemias macro e microcíticas</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="info-footer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Fonte: Guia Estatístico ENAMED — Estratégia MED | Revalida INEP (2011–2026)</div>
+  </div>
+
+  <!-- ═══ CIRURGIA ═══ -->
+  <div class="panel" id="panel-CIR">
+    <div class="panel-header" style="background:linear-gradient(135deg,#FAEEDA,#f5ddb0);border:1px solid #FAC775">
+      <div>
+        <h2 style="color:#633806">Cirurgia Geral</h2>
+        <p style="color:#854F0B">Top temas · frequência histórica ENAMED</p>
+      </div>
+      <span class="panel-badge" style="color:#633806">CIR</span>
+    </div>
+    <div class="subtopics-grid">
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FAEEDA;color:#633806">1</div>
+          <div><div class="sub-card-title">Trauma <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐ top</span></div><div class="sub-card-pct" style="color:#BA7517">24,48% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:90%;background:#BA7517"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Avaliação inicial do politraumatizado (ATLS)</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Vias aéreas e trauma torácico</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Trauma abdominal e pélvico</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>TCE — epidural e subdural</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FAEEDA;color:#633806">2</div>
+          <div><div class="sub-card-title">Urgências abdominais</div><div class="sub-card-pct" style="color:#BA7517">19,93% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:75%;background:#BA7517"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Abdome agudo inflamatório — apendicite, colecistite</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Abdome agudo perfurativo</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Obstrução intestinal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Abdome agudo vascular e hemorrágico</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FAEEDA;color:#633806">3</div>
+          <div><div class="sub-card-title">Vias biliares e pâncreas</div><div class="sub-card-pct" style="color:#BA7517">Coledocolitíase · neoplasia pancreática</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:60%;background:#BA7517"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Colelitíase e colecistite crônica</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Coledocolitíase e colangite</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Pancreatite aguda e crônica</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Neoplasia pancreática</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FAEEDA;color:#633806">4</div>
+          <div><div class="sub-card-title">Cirurgia infantil</div><div class="sub-card-pct" style="color:#BA7517">11,54% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:48%;background:#BA7517"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Hérnias e hidroceles pediátricas</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Estenose hipertrófica do piloro</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Apendicite em crianças</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Intussuscepção intestinal</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FAEEDA;color:#633806">5</div>
+          <div><div class="sub-card-title">Proctologia</div><div class="sub-card-pct" style="color:#BA7517">Hérnias · diverticulite · abscesso</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:38%;background:#BA7517"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Diverticulite complicada</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Hérnias abdominais</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Câncer colorretal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Abscesso anorretal e fístulas</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FAEEDA;color:#633806">6</div>
+          <div><div class="sub-card-title">Complicações pós-operatórias</div><div class="sub-card-pct" style="color:#BA7517">4,90% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:28%;background:#BA7517"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Deiscência de anastomose</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Tromboembolismo venoso (Caprini)</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Infecção de sítio cirúrgico</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Síndrome de dumping pós-gastrectomia</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FAEEDA;color:#633806">7</div>
+          <div><div class="sub-card-title">Urologia</div><div class="sub-card-pct" style="color:#BA7517">6,64% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:22%;background:#BA7517"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Câncer de próstata e PSA</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Urolitíase</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#BA7517"></span>Trauma renal e vesical</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="info-footer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Fonte: Guia Estatístico ENAMED — Estratégia MED | Revalida INEP (2011–2026)</div>
+  </div>
+
+  <!-- ═══ PEDIATRIA ═══ -->
+  <div class="panel" id="panel-PED">
+    <div class="panel-header" style="background:linear-gradient(135deg,#EEEDFE,#dddaf9);border:1px solid #CECBF6">
+      <div>
+        <h2 style="color:#3C3489">Pediatria</h2>
+        <p style="color:#534AB7">Top temas · frequência histórica ENAMED 2011–2026</p>
+      </div>
+      <span class="panel-badge" style="color:#3C3489">PED</span>
+    </div>
+    <div class="subtopics-grid">
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#EEEDFE;color:#3C3489">1</div>
+          <div><div class="sub-card-title">Puericultura <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐ top</span></div><div class="sub-card-pct" style="color:#7F77DD">29,90% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:90%;background:#7F77DD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Imunizações — calendário nacional <span class="star-tag" style="background:#EEEDFE;color:#534AB7">⭐</span></div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Crescimento — curvas e avaliação</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Aleitamento materno</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>DNPM — desenvolvimento neuropsicomotor</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#EEEDFE;color:#3C3489">2</div>
+          <div><div class="sub-card-title">Neonatologia</div><div class="sub-card-pct" style="color:#7F77DD">20,93% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:75%;background:#7F77DD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Icterícia neonatal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Sepse neonatal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Infecções congênitas (TORCHS)</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Cuidados neonatais e reanimação</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#EEEDFE;color:#3C3489">3</div>
+          <div><div class="sub-card-title">Pneumologia pediátrica</div><div class="sub-card-pct" style="color:#7F77DD">10,96% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:58%;background:#7F77DD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Pneumonia na infância</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Asma na criança</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Bronquiolite</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>IVAS — infecções de vias aéreas superiores</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#EEEDFE;color:#3C3489">4</div>
+          <div><div class="sub-card-title">Doenças exantemáticas</div><div class="sub-card-pct" style="color:#7F77DD">Ranking top 5 histórico</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:48%;background:#7F77DD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Sarampo, rubéola, escarlatina</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Varicela e herpes-zóster</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Eritema infeccioso (5ª doença)</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Roséola infantil (6ª doença)</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#EEEDFE;color:#3C3489">5</div>
+          <div><div class="sub-card-title">Gastroenterologia pediátrica</div><div class="sub-card-pct" style="color:#7F77DD">8,64% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:40%;background:#7F77DD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Diarreias e desidratação</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Parasitoses intestinais</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Doenças disabsortivas</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#EEEDFE;color:#3C3489">6</div>
+          <div><div class="sub-card-title">Reumatologia pediátrica</div><div class="sub-card-pct" style="color:#7F77DD">6,98% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:32%;background:#7F77DD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Febre reumática</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Artrite idiopática juvenil</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Lúpus neonatal</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#EEEDFE;color:#3C3489">7</div>
+          <div><div class="sub-card-title">Neurologia pediátrica</div><div class="sub-card-pct" style="color:#7F77DD">Convulsão febril · epilepsias</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:26%;background:#7F77DD"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Convulsão febril</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>Epilepsia mioclônica juvenil</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#7F77DD"></span>TDAH e transtornos comportamentais</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="info-footer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Fonte: Guia Estatístico ENAMED — Estratégia MED | Revalida INEP (2011–2026)</div>
+  </div>
+
+  <!-- ═══ OBSTETRÍCIA ═══ -->
+  <div class="panel" id="panel-OBS">
+    <div class="panel-header" style="background:linear-gradient(135deg,#FBEAF0,#f8d0de);border:1px solid #F4C0D1">
+      <div>
+        <h2 style="color:#72243E">Obstetrícia</h2>
+        <p style="color:#993556">Top temas · frequência histórica ENAMED</p>
+      </div>
+      <span class="panel-badge" style="color:#72243E">OBS</span>
+    </div>
+    <div class="subtopics-grid">
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FBEAF0;color:#72243E">1</div>
+          <div><div class="sub-card-title">Assistência ao pré-natal <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐ top</span></div><div class="sub-card-pct" style="color:#D4537E">13,88% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:90%;background:#D4537E"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Pré-natal de risco habitual e alto risco</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Ganho de peso gestacional</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Ultrassom e vitalidade fetal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Modificações fisiológicas da gestação</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FBEAF0;color:#72243E">2</div>
+          <div><div class="sub-card-title">Síndromes hipertensivas <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐</span></div><div class="sub-card-pct" style="color:#D4537E">Doenças associadas 30,14%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:78%;background:#D4537E"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Pré-eclâmpsia — critérios de gravidade</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Eclâmpsia e sulfato de magnésio</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Síndrome HELLP</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>HAS crônica na gestação</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FBEAF0;color:#72243E">3</div>
+          <div><div class="sub-card-title">Doenças infecciosas na gestação</div><div class="sub-card-pct" style="color:#D4537E">Sífilis congênita · toxoplasmose</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:66%;background:#D4537E"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Sífilis na gestação e sífilis congênita</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Toxoplasmose gestacional</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Herpes genital na gestação</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Zika e microcefalia</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FBEAF0;color:#72243E">4</div>
+          <div><div class="sub-card-title">Intercorrências obstétricas</div><div class="sub-card-pct" style="color:#D4537E">23,44% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:56%;background:#D4537E"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Sangramento da 1ª metade — abortamento, gravidez ectópica</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Sangramento da 2ª metade — DPP, placenta prévia</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Hemorragia pós-parto</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Rotura prematura de membranas</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FBEAF0;color:#72243E">5</div>
+          <div><div class="sub-card-title">Diabetes na gestação</div><div class="sub-card-pct" style="color:#D4537E">Doenças associadas à gestação</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:46%;background:#D4537E"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Rastreamento e diagnóstico do DMG</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Insulinoterapia na gestação</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Complicações fetais do DMG</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FBEAF0;color:#72243E">6</div>
+          <div><div class="sub-card-title">Assistência ao parto</div><div class="sub-card-pct" style="color:#D4537E">12,92% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:38%;background:#D4537E"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Fases clínicas do parto e partograma</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Distócias e indução do parto</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Parto vaginal operatório (fórceps)</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Trabalho de parto prematuro</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FBEAF0;color:#72243E">7</div>
+          <div><div class="sub-card-title">Medicina fetal</div><div class="sub-card-pct" style="color:#D4537E">12,92% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:30%;background:#D4537E"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Vitalidade fetal — CTG e Doppler</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Restrição de crescimento fetal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#D4537E"></span>Aloimunização e doença hemolítica perinatal</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="info-footer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Fonte: Guia Estatístico ENAMED — Estratégia MED | Revalida INEP (2011–2026)</div>
+  </div>
+
+  <!-- ═══ GINECOLOGIA ═══ -->
+  <div class="panel" id="panel-GIN">
+    <div class="panel-header" style="background:linear-gradient(135deg,#FEF0FB,#f5d0f0);border:1px solid #EDBBEA">
+      <div>
+        <h2 style="color:#6B2466">Ginecologia</h2>
+        <p style="color:#8B3088">Top temas · frequência histórica ENAMED</p>
+      </div>
+      <span class="panel-badge" style="color:#6B2466">GIN</span>
+    </div>
+    <div class="subtopics-grid">
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FEF0FB;color:#6B2466">1</div>
+          <div><div class="sub-card-title">Ginecologia endócrina <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐ top</span></div><div class="sub-card-pct" style="color:#C060B8">34,76% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:90%;background:#C060B8"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Planejamento familiar — anticoncepção <span class="star-tag" style="background:#FEF0FB;color:#6B2466">⭐</span></div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Amenorreia e SOP</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Climatério e terapia hormonal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Sangramento uterino anormal (SUA)</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FEF0FB;color:#6B2466">2</div>
+          <div><div class="sub-card-title">Oncologia ginecológica</div><div class="sub-card-pct" style="color:#C060B8">24,76% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:74%;background:#C060B8"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Rastreamento do câncer de colo uterino <span class="star-tag" style="background:#FEF0FB;color:#6B2466">⭐</span></div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Câncer de endométrio e hiperplasia</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Tumores anexiais e câncer de ovário</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Doença trofoblástica gestacional</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FEF0FB;color:#6B2466">3</div>
+          <div><div class="sub-card-title">Mastologia</div><div class="sub-card-pct" style="color:#C060B8">13,81% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:58%;background:#C060B8"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Rastreamento do câncer de mama — mamografia e BI-RADS</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Doenças benignas da mama</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Câncer de mama — estadiamento e tratamento</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FEF0FB;color:#6B2466">4</div>
+          <div><div class="sub-card-title">Infecções ginecológicas</div><div class="sub-card-pct" style="color:#C060B8">14,76% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:46%;background:#C060B8"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Vulvovaginites — candidíase, BV, tricomoníase</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>DIP — doença inflamatória pélvica</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Úlceras genitais</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FEF0FB;color:#6B2466">5</div>
+          <div><div class="sub-card-title">Endometriose e miomatose</div><div class="sub-card-pct" style="color:#C060B8">Ginecologia geral 10,48%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:36%;background:#C060B8"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Endometriose — diagnóstico e tratamento</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Miomatose uterina</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Adenomiose</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Dor pélvica crônica</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#FEF0FB;color:#6B2466">6</div>
+          <div><div class="sub-card-title">Infertilidade e uroginecologia</div><div class="sub-card-pct" style="color:#C060B8">Ginecologia geral</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:26%;background:#C060B8"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Infertilidade conjugal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Incontinência urinária</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#C060B8"></span>Prolapsos de órgãos pélvicos</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="info-footer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Fonte: Guia Estatístico ENAMED — Estratégia MED | Revalida INEP (2011–2026)</div>
+  </div>
+
+  <!-- ═══ PREVENTIVA ═══ -->
+  <div class="panel" id="panel-PREV">
+    <div class="panel-header" style="background:linear-gradient(135deg,#E1F5EE,#b8e8d6);border:1px solid #9FE1CB">
+      <div>
+        <h2 style="color:#085041">Medicina Preventiva / MFC</h2>
+        <p style="color:#0F6E56">Top temas · frequência histórica ENAMED</p>
+      </div>
+      <span class="panel-badge" style="color:#085041">PREV</span>
+    </div>
+    <div class="subtopics-grid">
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E1F5EE;color:#085041">1</div>
+          <div><div class="sub-card-title">Epidemiologia <span class="star-tag" style="background:#FFF3CD;color:#92600A">⭐ top</span></div><div class="sub-card-pct" style="color:#1D9E75">35,10% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:90%;background:#1D9E75"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Vigilância em saúde — 10,37% <span class="star-tag" style="background:#E1F5EE;color:#085041">⭐</span></div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Testes diagnósticos — sensibilidade, especificidade, VPP, VPN</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Estudos epidemiológicos — caso-controle, coorte, ECR</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Medidas de associação e bioestatística</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E1F5EE;color:#085041">2</div>
+          <div><div class="sub-card-title">SUS — Princípios e Diretrizes</div><div class="sub-card-pct" style="color:#1D9E75">28,16% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:74%;background:#1D9E75"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Princípios do SUS — universalidade, equidade, integralidade</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Marcos legais — Lei 8080, Lei 8142</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Atenção primária à saúde</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Descentralização e regionalização</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E1F5EE;color:#085041">3</div>
+          <div><div class="sub-card-title">Medicina de Família e Comunidade</div><div class="sub-card-pct" style="color:#1D9E75">15,92% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:58%;background:#1D9E75"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Abordagem centrada na pessoa</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Saúde do idoso — avaliação multidimensional</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Comunicação e relação médico-paciente</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Condições prevalentes na APS</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E1F5EE;color:#085041">4</div>
+          <div><div class="sub-card-title">Ética Médica</div><div class="sub-card-pct" style="color:#1D9E75">14,69% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:46%;background:#1D9E75"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Autonomia e consentimento informado</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Sigilo médico e declaração de óbito</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Publicidade médica e conflitos de interesse</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Internação involuntária e legislação</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E1F5EE;color:#085041">5</div>
+          <div><div class="sub-card-title">Imunizações e vacinação</div><div class="sub-card-pct" style="color:#1D9E75">Medidas de saúde coletiva 8,64%</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:36%;background:#1D9E75"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Calendário nacional de vacinação</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Imunidade de rebanho</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Hesitação vacinal — comunicação com paciente</div>
+        </div>
+      </div>
+
+      <div class="sub-card">
+        <div class="sub-card-header">
+          <div class="rank-badge" style="background:#E1F5EE;color:#085041">6</div>
+          <div><div class="sub-card-title">Saúde do trabalhador</div><div class="sub-card-pct" style="color:#1D9E75">6,12% das questões</div></div>
+        </div>
+        <div class="sub-card-bar-wrap"><div class="sub-card-bar-bg"><div class="sub-card-bar-fill" style="width:26%;background:#1D9E75"></div></div></div>
+        <div class="sub-card-topics">
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Doenças ocupacionais e agrotóxicos</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>CAT e nexo causal</div>
+          <div class="topic-item"><span class="topic-dot" style="background:#1D9E75"></span>Vigilância em saúde do trabalhador</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="info-footer"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Fonte: Guia Estatístico ENAMED — Estratégia MED | Revalida INEP (2011–2026)</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <div>
+      <h3>Quer os resumos completos de todos esses temas?</h3>
+      <p>Material organizado por especialidade, baseado exatamente no que mais cai.</p>
+    </div>
+    <a href="https://pay.kiwify.com.br/HjT7xH2" class="btn-white">
+      Quero os resumos
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+
+<script>
+function showArea(area, btn) {
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.area-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('panel-' + area).classList.add('active');
+  btn.classList.add('active');
+
+  // animate bars
+  setTimeout(function(){
+    document.querySelectorAll('#panel-' + area + ' .sub-card-bar-fill').forEach(function(el){
+      var w = el.style.width;
+      el.style.width = '0';
+      setTimeout(function(){ el.style.width = w; }, 60);
+    });
+  }, 30);
+}
+
+// Initial bar animation
+window.addEventListener('load', function(){
+  document.querySelectorAll('#panel-CM .sub-card-bar-fill').forEach(function(el){
+    var w = el.style.width; el.style.width='0';
+    setTimeout(function(){ el.style.width=w; },200);
+  });
+});
+</script>
+</body>
+</html>
